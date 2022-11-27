@@ -17,24 +17,27 @@ class = require 'lib/class'
 -- Require statements.
 require 'src/constants'
 require 'src.states.start-state.StartState'
+require 'src.states.play-state.PlayState'
 require 'src.StateMachine'
+require 'src.game-objects.model.GameObject'
+require 'src.game-objects.paddle.Paddle'
 
 -- Set the default graphical filter to be nearest-nearest.
 love.graphics.setDefaultFilter('nearest', 'nearest')
 
 -- Global tables, utilised to contain resources, such as fonts, graphics, sounds, etcetera.
 gFonts = {
-    ['small'] = love.graphics.newFont('fonts/font.ttf', 8),
+    ['small']  = love.graphics.newFont('fonts/font.ttf', 8),
     ['medium'] = love.graphics.newFont('fonts/font.ttf', 16),
-    ['large'] = love.graphics.newFont('fonts/font.ttf', 32),
+    ['large']  = love.graphics.newFont('fonts/font.ttf', 32),
 }
 
 gSounds = {
-    ['brick-hit-1'] = love.audio.newSource('sounds/brick-hit-1.wav', 'static'),
-    ['paddle-hit'] = love.audio.newSource('sounds/paddle_hit.wav', 'static'),
-    ['select'] = love.audio.newSource('sounds/select.wav', 'static'),
+    ['brick-hit-1']     = love.audio.newSource('sounds/brick-hit-1.wav', 'static'),
+    ['paddle-hit']      = love.audio.newSource('sounds/paddle_hit.wav', 'static'),
+    ['select']          = love.audio.newSource('sounds/select.wav', 'static'),
 
-    ['music'] = love.audio.newSource('sounds/music.wav', 'static')
+    ['music']           = love.audio.newSource('sounds/music.wav', 'static')
 }
 
 gGraphics = {
@@ -42,5 +45,6 @@ gGraphics = {
 }
 
 gStateMachine = StateMachine {
-    ['start'] = function() return StartState() end
+    ['start'] = function() return StartState() end,
+    ['play']  = function() return PlayState() end
 }

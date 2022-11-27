@@ -6,11 +6,9 @@
 require 'src.dependencies'
 
 local SHOULD_DISPLAY_FPS = true
+local MUTE = false
 
 function love.load()
-    -- Set the default graphical filter to be nearest-nearest.
-    love.graphics.setDefaultFilter('nearest', 'nearest')
-
     -- Set the title of the current window to the name of the game.
     love.window.setTitle(GAME_TITLE)
 
@@ -21,14 +19,20 @@ function love.load()
         vsync = true
     })
 
+    gStateMachine:change('start')
+
     -- Initialise the input map.
     love.keyboard.keypressed = {}
 end
 
 function love.keypressed(key)
     if key == 'f' then 
-        SHOULD_DISPLAY_FPS = not SHOULD_DISPLAY_FPS;
+        SHOULD_DISPLAY_FPS = not SHOULD_DISPLAY_FPS
     end
+    if key == 'm' then 
+        MUTE = not MUTE
+    end
+
     love.keyboard.keypressed[key] = true
 end
 
@@ -37,10 +41,28 @@ function love.keyboard.wasPressed(key)
 end
 
 function love.update(deltaTime)
+    gStateMachine:update(deltaTime)
+    if not MUTE then 
+        gSounds['music']:play()
+    else 
+        gSounds['music']:pause()
+    end
 end
 
 function love.draw()
     push:start()
+        -- Draw first the background sprite. The sprite is common to all states/views.
+        love.graphics.draw(gGraphics['background'],
+            -- Draw the image at coordinates (0, 0) aka the top left corner.
+            0, 0,
+            -- We do not want any rotation.
+            0,
+            -- Specify a sequence of scale factors so as to ensure that our image covers the whole screen.
+            VIRTUAL_WIDHT / (gGraphics['background']:getWidth() - 1), VIRTUAL_HEIGHT / (gGraphics['background']:getHeight() - 1)
+        )
+
+        gStateMachine:render()
+
         -- If the flag for showing the FPS counter is true then display it.
         if SHOULD_DISPLAY_FPS then 
             displayFPS()
@@ -66,9 +88,9 @@ function displayFPS()
     -- Set the current colour to a neon green.
     love.graphics.setColor(0, 255, 0)
     -- Set the font which we are going to utilise so as to draw the text to the screen.
-    love.graphics.setFont(gFonts['small'])
+    --love.graphics.setFont(gFonts['small'])
     -- Display the current frame rate in the upper left corner.
-    love.graphics.print ( "FPS: " .. love.timer.getFPS(), 4, 4)
+    love.graphics.print ( "FPS: " .. tostring(love.timer.getFPS()), 4, 4)
     -- Change the colour back to the original, i.e. plain old white.
     love.graphics.setColor(0, 0, 0)
 end

@@ -36,7 +36,7 @@ function Paddle:update(deltaTime)
     end
 
     if self.deltaX < 0 then 
-        self.x = math.max(0, self.x + self.deltaX * deltaTime )
+        self.x = math.max(0, self.x + self.deltaX * deltaTime)
     else
         self.x = math.min(self.x + self.deltaX * deltaTime, VIRTUAL_WIDHT - 68)
     end

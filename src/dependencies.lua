@@ -24,6 +24,7 @@ require 'src.states.start-state.StartState'
 require 'src.states.play-state.PlayState'
 require 'src.game-objects.model.GameObject'
 require 'src.game-objects.paddle.Paddle'
+require 'src.game-objects.ball.Ball'
 
 -- Set the default graphical filter to be nearest-nearest.
 love.graphics.setDefaultFilter('nearest', 'nearest')
@@ -59,7 +60,8 @@ gGraphics = {
 }
 
 gSprites = {
-    ['paddle'] = generateQuadsForPaddles(gGraphics['main'])
+    ['paddle'] = generateQuadsForPaddles(gGraphics['main']),
+    ['ball']   = generateQuadsForBalls(gGraphics['main'])
 }
 
 

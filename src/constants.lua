@@ -19,3 +19,6 @@ VIRTUAL_HEIGHT = 243
 -- Actual window dimensions.
 WINDOW_WIDTH  = 1280
 WINDOW_HEIGHT = 720 
+
+-- Paddle speed.
+PADDLE_SPEED = 200

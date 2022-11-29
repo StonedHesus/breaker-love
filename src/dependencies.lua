@@ -13,34 +13,57 @@
 -- External libraries having their reference stored within a global variable.
 push = require 'lib/push'
 class = require 'lib/class'
+luaunit = require 'lib.luaunit'
 
 -- Require statements.
 require 'src/constants'
-require 'src.states.start-state.StartState'
+require 'src.util'
 require 'src.StateMachine'
+require 'src.states.model.State'
+require 'src.states.start-state.StartState'
+require 'src.states.play-state.PlayState'
+require 'src.game-objects.model.GameObject'
+require 'src.game-objects.paddle.Paddle'
 
 -- Set the default graphical filter to be nearest-nearest.
 love.graphics.setDefaultFilter('nearest', 'nearest')
 
 -- Global tables, utilised to contain resources, such as fonts, graphics, sounds, etcetera.
 gFonts = {
-    ['small'] = love.graphics.newFont('fonts/font.ttf', 8),
+    ['small']  = love.graphics.newFont('fonts/font.ttf', 8),
     ['medium'] = love.graphics.newFont('fonts/font.ttf', 16),
-    ['large'] = love.graphics.newFont('fonts/font.ttf', 32),
+    ['large']  = love.graphics.newFont('fonts/font.ttf', 32),
 }
 
 gSounds = {
-    ['brick-hit-1'] = love.audio.newSource('sounds/brick-hit-1.wav', 'static'),
-    ['paddle-hit'] = love.audio.newSource('sounds/paddle_hit.wav', 'static'),
-    ['select'] = love.audio.newSource('sounds/select.wav', 'static'),
+    ['brick-hit-1']     = love.audio.newSource('sounds/brick-hit-1.wav', 'static'),
+    ['brick-hit-2']     = love.audio.newSource('sounds/brick-hit-2.wav', 'static'),
+    ['confirm']         = love.audio.newSource('sounds/confirm.wav', 'static'),
+    ['high-score']      = love.audio.newSource('sounds/high_score.wav', 'static'),
+    ['hurt']            = love.audio.newSource('sounds/hurt.wav', 'static'),
+    ['no-select']       = love.audio.newSource('sounds/no-select.wav', 'static'),
+    ['paddle-hit']      = love.audio.newSource('sounds/paddle_hit.wav', 'static'),
+    ['pause']           = love.audio.newSource('sounds/pause.wav', 'static'),
+    ['recover']         = love.audio.newSource('sounds/recover.wav', 'static'),
+    ['score']           = love.audio.newSource('sounds/score.wav', 'static'),
+    ['select']          = love.audio.newSource('sounds/select.wav', 'static'),
+    ['victory']         = love.audio.newSource('sounds/victory.wav', 'static'),
+    ['wall-hit']        = love.audio.newSource('sounds/wall_hit.wav', 'static'),
 
-    ['music'] = love.audio.newSource('sounds/music.wav', 'static')
+    ['music']           = love.audio.newSource('sounds/music.wav', 'static')
 }
 
 gGraphics = {
-    ['background'] = love.graphics.newImage('graphics/background.png')
+    ['background'] = love.graphics.newImage('graphics/background.png'),
+    ['main']       = love.graphics.newImage('graphics/breakout.png')
 }
 
+gSprites = {
+    ['paddle'] = generateQuadsForPaddles(gGraphics['main'])
+}
+
+
 gStateMachine = StateMachine {
-    ['start'] = function() return StartState() end
+    ['start'] = function() return StartState() end,
+    ['play']  = function() return PlayState() end
 }

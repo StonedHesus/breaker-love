@@ -43,6 +43,10 @@ function StartState:update(deltaTime)
     if love.keyboard.wasPressed('return') then 
         gSounds['select']:play()
 
+        if options[currentlyHighlighted] == 'Play' then
+            gStateMachine:change('play')
+        end
+        
         if options[currentlyHighlighted] == 'Exit' then
             love.event.quit()
         end

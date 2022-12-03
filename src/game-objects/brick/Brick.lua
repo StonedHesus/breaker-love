@@ -31,9 +31,11 @@ end
 
 function Brick:update(deltaTime)
     if self.tier == 1 then 
+        gSounds['brick-hit-2']:play()
         self.exists = false
         self:destroy()
     else 
+        gSounds['brick-hit-1']:play()
         self.tier = self.tier - 1
     end
 end

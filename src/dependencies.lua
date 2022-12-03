@@ -18,12 +18,6 @@ luaunit = require 'lib.luaunit'
 -- Require statements.
 require 'src/constants'
 require 'src.util'
-require 'src.StateMachine'
-require 'src.states.model.State'
-require 'src.states.start-state.StartState'
-require 'src.states.play-state.PlayState'
-require 'src.game-objects.model.GameObject'
-require 'src.game-objects.paddle.Paddle'
 
 -- Set the default graphical filter to be nearest-nearest.
 love.graphics.setDefaultFilter('nearest', 'nearest')
@@ -59,10 +53,20 @@ gGraphics = {
 }
 
 gSprites = {
-    ['paddle'] = generateQuadsForPaddles(gGraphics['main'])
+    ['paddle'] = generateQuadsForPaddles(gGraphics['main']),
+    ['ball']   = generateQuadsForBalls(gGraphics['main'])
 }
 
+-- Require statements.
+require 'src.StateMachine'
+require 'src.states.model.State'
+require 'src.states.start-state.StartState'
+require 'src.states.play-state.PlayState'
+require 'src.game-objects.model.GameObject'
+require 'src.game-objects.paddle.Paddle'
+require 'src.game-objects.ball.Ball'
 
+-- Global variable containing the state machine for the current program.
 gStateMachine = StateMachine {
     ['start'] = function() return StartState() end,
     ['play']  = function() return PlayState() end

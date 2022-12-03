@@ -54,7 +54,8 @@ gGraphics = {
 
 gSprites = {
     ['paddle'] = generateQuadsForPaddles(gGraphics['main']),
-    ['ball']   = generateQuadsForBalls(gGraphics['main'])
+    ['ball']   = generateQuadsForBalls(gGraphics['main']),
+    ['brick']  = generateQuadsForBricks(gGraphics['main'])
 }
 
 -- Require statements.
@@ -65,6 +66,7 @@ require 'src.states.play-state.PlayState'
 require 'src.game-objects.model.GameObject'
 require 'src.game-objects.paddle.Paddle'
 require 'src.game-objects.ball.Ball'
+require 'src.game-objects.brick.Brick'
 
 -- Global variable containing the state machine for the current program.
 gStateMachine = StateMachine {

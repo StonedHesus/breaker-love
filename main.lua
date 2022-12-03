@@ -9,9 +9,6 @@ local SHOULD_DISPLAY_FPS = true
 local MUTE = false
 
 function love.load()
-    -- Set the title of the current window to the name of the game.
-    love.window.setTitle(GAME_TITLE)
-
     -- Setup the push configuration for the project.
     push:setupScreen(VIRTUAL_WIDHT, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
         fullscreen = false, 
@@ -29,6 +26,7 @@ function love.keypressed(key)
     if key == 'f' then 
         SHOULD_DISPLAY_FPS = not SHOULD_DISPLAY_FPS
     end
+
     if key == 'm' then 
         MUTE = not MUTE
     end
@@ -47,6 +45,10 @@ function love.update(deltaTime)
     else 
         gSounds['music']:pause()
     end
+end
+
+function love.resize(width, height)
+    push:resize(width, height)
 end
 
 function love.draw()

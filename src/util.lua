@@ -32,6 +32,29 @@ function table.slice(table, start, finish, step)
     return sliced
 end
 
+function generateQuads(atlas, width, height)
+    local sw = atlas:getWidth() / width
+    local sh = atlas:getHeight() / height
+
+    local counter = 1
+    local quads = {}
+
+    for y = 0, sh - 1
+    do
+        for x = 0, sw - 1
+        do
+            quads[counter] = love.graphics.newQuad(x * width, y * height, width, height, atlas:getDimensions())
+            counter = counter + 1
+        end
+    end
+
+    return quads
+end
+
+function generateQuadsForBricks(atlas)
+    return table.slice(generateQuads(atlas, 32, 16), 1, 21)
+end
+
 function generateQuadsForBalls(atlas)
     assert(table)
 

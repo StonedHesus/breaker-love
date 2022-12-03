@@ -9,9 +9,6 @@ local SHOULD_DISPLAY_FPS = true
 local MUTE = false
 
 function love.load()
-    -- Set the title of the current window to the name of the game.
-    love.window.setTitle(GAME_TITLE)
-
     -- Setup the push configuration for the project.
     push:setupScreen(VIRTUAL_WIDHT, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
         fullscreen = false, 

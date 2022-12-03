@@ -1,19 +1,28 @@
+--[[
+    This here compilation unit, contains the implementation of the conceptual design of the 
+    paddle object.
+
+    Author: Andrei-Paul Ionescu.
+]]
+
 Paddle = class{__includes = GameObject}
 
-function Paddle:init()
-    -- Specify the default skin which we want to utilise, where a skin is a different colour for the
-    -- current paddle.
-    self.skin = 1
+function Paddle:init(skin, size)
+    self.skin = skin
 
-    -- Specify the size which we want to have by default.
-    self.size = 2
+    self.size = size
 
-    self.x = VIRTUAL_WIDHT / 2 - 32
+    _, _,self.width, self.height = gSprites['paddle'][self.size + 4 * (self.skin - 1)]:getViewport()
+
+    self.x = VIRTUAL_WIDHT / 2 - self.width / 2
     self.y = VIRTUAL_HEIGHT -  32
 
     self.deltaX = 0
     self.speed  = PADDLE_SPEED
-    
+end
+
+function Paddle:newDefaultPaddle()
+    return Paddle(1, 2)
 end
 
 function Paddle:setSkin(skin)
@@ -24,6 +33,7 @@ end
 function Paddle:setSize(size)
     assert(size > 0 and size < 5)
     self.size = size
+    _, _,self.width, self.height = gSprites['paddle'][self.size + 4 * (self.skin - 1)]:getViewport()
 end
 
 function Paddle:update(deltaTime)
@@ -38,7 +48,7 @@ function Paddle:update(deltaTime)
     if self.deltaX < 0 then 
         self.x = math.max(0, self.x + self.deltaX * deltaTime)
     else
-        self.x = math.min(self.x + self.deltaX * deltaTime, VIRTUAL_WIDHT - 68)
+        self.x = math.min(self.x + self.deltaX * deltaTime, VIRTUAL_WIDHT - self.width - 4)
     end
 end
 

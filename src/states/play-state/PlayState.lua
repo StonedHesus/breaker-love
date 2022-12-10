@@ -2,6 +2,7 @@ require 'src.game-objects.paddle.Paddle'
 require 'src.game-objects.ball.Ball'
 require 'src.game-objects.brick.Brick'
 require 'src.level.Level'
+require 'src.player.Player'
 
 PlayState = class{__includes=State}
 
@@ -66,6 +67,8 @@ function PlayState:update(deltaTime)
 
             ball.deltaY = ball.deltaY * 1.02
 
+            player:addScore(10)
+
             break
         end
     end
@@ -79,4 +82,6 @@ function PlayState:render()
     do
         value:draw()
     end
+    
+    player:draw()
 end

@@ -49,24 +49,30 @@ gSounds = {
 
 gGraphics = {
     ['background'] = love.graphics.newImage('graphics/background.png'),
-    ['main']       = love.graphics.newImage('graphics/breakout.png')
+    ['main']       = love.graphics.newImage('graphics/breakout.png'),
+    ['hearts']     = love.graphics.newImage('graphics/hearts.png')
 }
 
 gSprites = {
     ['paddle'] = generateQuadsForPaddles(gGraphics['main']),
     ['ball']   = generateQuadsForBalls(gGraphics['main']),
-    ['brick']  = generateQuadsForBricks(gGraphics['main'])
+    ['brick']  = generateQuadsForBricks(gGraphics['main']), 
+    ['heart']  = generateQuads(gGraphics['hearts'], 10, 9)
 }
 
 -- Require statements.
 require 'src.StateMachine'
 require 'src.states.model.State'
+require 'src.player.Player'
 require 'src.states.start-state.StartState'
 require 'src.states.play-state.PlayState'
 require 'src.game-objects.model.GameObject'
 require 'src.game-objects.paddle.Paddle'
 require 'src.game-objects.ball.Ball'
 require 'src.game-objects.brick.Brick'
+
+-- Define a global player variable, thus mimicking a Singleton Desing Pattern [Gamma95].
+player = Player()
 
 -- Global variable containing the state machine for the current program.
 gStateMachine = StateMachine {

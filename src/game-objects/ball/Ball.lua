@@ -3,7 +3,7 @@ Ball = class{__includes=GameObject}
 function Ball:init(skin) 
     self.skin = skin
 
-   self.width, self.height = 8, 8
+    self.width, self.height = 8, 8
 
     self.x = VIRTUAL_WIDHT / 2 - self.width/2
     self.y = VIRTUAL_HEIGHT - 42
@@ -67,6 +67,7 @@ function Ball:update(deltaTime)
 
     if self.y >= VIRTUAL_HEIGHT then 
         self:reset()
+        player:loseHP(1)
         gSounds['hurt']:play()
     end
 

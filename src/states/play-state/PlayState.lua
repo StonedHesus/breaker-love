@@ -46,7 +46,7 @@ function PlayState:update(deltaTime)
         end
 
         if ball:collides(brick) and brick.exists then
-            brick:update(deltaTime)
+            brick:hit()
         
             -- Once collided with the brick, in accordance to the laws of the game, the ball ought to bounce, at an angle which is computed 
             -- based on which side of the brick it has collided with. This feature also allows us to not detect multiple hits for the same brick, 
@@ -72,6 +72,10 @@ function PlayState:update(deltaTime)
             break
         end
     end
+	for key, brick in ipairs(level)
+	do
+		brick:update(deltaTime)
+	end
 end
 
 function PlayState:render()
@@ -82,6 +86,11 @@ function PlayState:render()
     do
         value:draw()
     end
+	
+	for key, value in ipairs(level)
+	do
+		value:drawParticles()
+	end
     
     player:draw()
 end

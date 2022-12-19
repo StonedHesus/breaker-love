@@ -50,7 +50,8 @@ gSounds = {
 gGraphics = {
     ['background'] = love.graphics.newImage('graphics/background.png'),
     ['main']       = love.graphics.newImage('graphics/breakout.png'),
-    ['hearts']     = love.graphics.newImage('graphics/hearts.png')
+    ['hearts']     = love.graphics.newImage('graphics/hearts.png'),
+	['particle']   = love.graphics.newImage('graphics/particle.png')
 }
 
 gSprites = {
